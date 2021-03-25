@@ -1,0 +1,1 @@
+# Aplicação de Teste .Net Core Azure Pipeline

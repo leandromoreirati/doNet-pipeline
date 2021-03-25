@@ -1,0 +1,8 @@
+### VS Code ###
+.vscode/
+
+### TERRAFORM ###
+terraform/.terraform
+terraform/terraform.tfstate.d
+deployment/terraform/.terraform
+deployment/terraform/terraform.tfstate.d

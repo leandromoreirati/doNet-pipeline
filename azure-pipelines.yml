@@ -6,7 +6,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  imageName: 'dot-net'
+  imageName: 'dotnet'
   DOCKER_BUILDKIT: 1
     
 steps:

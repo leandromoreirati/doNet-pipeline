@@ -10,9 +10,20 @@ variables:
   DOCKER_BUILDKIT: 1
     
 steps:
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'YourSonarqubeServerEndpoint'
+    scannerMode: 'Other'
+    extraProperties: 'sonar.projectKey=YourProjectKey'
+
+# Publish Quality Gate Result task
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: Docker@2
   displayName: Build an image
   inputs:
     repository: $(imageName)
     command: build
-    Dockerfile: Dockerfile
+    Dockerfile: ./Dockerfile

@@ -1,6 +1,9 @@
 ### VS Code ###
 .vscode/
 
+### VAGRANT ###
+.vagrant/
+
 ### TERRAFORM ###
 terraform/.terraform
 terraform/terraform.tfstate.d

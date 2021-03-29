@@ -8,13 +8,28 @@ pool:
 variables:
   imageName: 'dotnet'
   DOCKER_BUILDKIT: 1
-    
-steps:
 
-# Build Docker Image
-- task: Docker@2
-  displayName: Build an image
-  inputs:
-    repository: $(imageName)
-    command: build
-    Dockerfile: Dockerfile
+stages:
+  - stage: Tests
+    displayName: Tests
+
+    jobs:
+    - job: SonarQube
+
+      steps:
+      - task: SonarCloudPrepare@4
+        displayName: Prepare Analysis Configuration task
+        inputs:
+          SonarCloud: 'SonarCloud'
+          organization: 'azuredevopsleandro'
+          scannerMode: 'MSBuild'
+          projectKey: 'azuredevopsleandro_dotNet-Pipeline'
+          projectName: 'dotNet Pipeline'
+
+      - task: SonarCloudAnalyze@1
+        displayName: Run Code Analysis
+
+      - task: SonarCloudPublish@1
+        displayName: Publish Quality Gate Result
+        inputs:
+          pollingTimeoutSec: '300'

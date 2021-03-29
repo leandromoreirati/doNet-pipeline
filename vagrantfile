@@ -1,0 +1,39 @@
+vms = {
+  'azure-devops' => {'memory' => '4096', 'cpus' => '1', 'ip' => '100', 'box' => 'debian/stretch64', 'disk' => '20GB', 'plugins' => '{vagrant-scp, vagrant-disksize}'}
+}
+
+Vagrant.configure("2") do |config|
+  vms.each do |name, conf|
+    config.vm.box = conf['box']
+    config.disksize.size = conf['disk']
+    #config.vagrant.plugins = conf['plugins']
+
+    config.vm.define "#{name}" do |vm|
+      vm.vm.hostname = "#{name}.local"
+
+      vm.vm.network "private_network", ip: "192.168.56.#{conf['ip']}", name: "VirtualBox Host-Only Ethernet Adapter"
+
+      vm.vm.network "forwarded_port", id: "grafana", host_ip: "127.0.0.1", guest: 3000, host: 3000
+      vm.vm.network "forwarded_port", id: "jaeger", host_ip: "127.0.0.1", guest: 16686, host: 16686
+      vm.vm.network "forwarded_port", id: "jaeger_udp", host_ip: "127.0.0.1", guest: 6831, host: 6831, protocol: "udp"
+      vm.vm.network "forwarded_port", id: "kafka", host_ip: "127.0.0.1", guest: 9092, host: 9092
+      vm.vm.network "forwarded_port", id: "pgadmin", host_ip: "127.0.0.1", guest: 80, host: 8080
+      vm.vm.network "forwarded_port", id: "postgresql", host_ip: "127.0.0.1", guest: 5432, host: 5432
+      vm.vm.network "forwarded_port", id: "prometheus", host_ip: "127.0.0.1", guest: 9090, host: 9090
+      vm.vm.network "forwarded_port", id: "redis", host_ip: "127.0.0.1", guest: 6379, host: 6379
+      vm.vm.network "forwarded_port", id: "splunk_1", host_ip: "127.0.0.1", guest: 1514, host: 1514
+      vm.vm.network "forwarded_port", id: "splunk_2", host_ip: "127.0.0.1", guest: 8000, host: 8000
+      vm.vm.network "forwarded_port", id: "splunk_3", host_ip: "127.0.0.1", guest: 8088, host: 8088
+      vm.vm.network "forwarded_port", id: "splunk_4", host_ip: "127.0.0.1", guest: 9997, host: 9997
+      vm.vm.network "forwarded_port", id: "node_exporter", host_ip: "127.0.0.1", guest: 9100, host: 9100
+
+      vm.vm.provision "shell", path: "./docker.sh"
+
+      vm.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--cpus", conf['cpus']]
+        v.customize ["modifyvm", :id, "--memory", conf['memory']]
+        v.customize ["modifyvm", :id, "--name", "#{name}"]
+      end
+    end
+  end
+end

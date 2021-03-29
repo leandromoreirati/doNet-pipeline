@@ -17,7 +17,7 @@ stages:
     - job: SonarQube
 
       steps:
-      - task: SonarCloudPrepare@1
+      - task: SonarCloudPrepare@4
         displayName: Prepare Analysis Configuration task
         inputs:
           SonarCloud: 'SonarCloud'

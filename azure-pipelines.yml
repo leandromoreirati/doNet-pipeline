@@ -3,7 +3,7 @@ trigger:
 - feature/*
    
 pool:
-  name: 'azure-devops-self-host'
+  name: 'defautl'
 
 variables:
   imageName: 'dotnet'

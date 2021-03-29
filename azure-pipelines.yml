@@ -3,7 +3,7 @@ trigger:
 - feature/*
    
 pool:
-  vmImage: 'vs2017-win2016'
+  vmImage: 'azure-devops-self-host'
 
 variables:
   imageName: 'dotnet'

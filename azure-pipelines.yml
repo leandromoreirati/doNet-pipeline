@@ -3,7 +3,7 @@ trigger:
 - feature/*
    
 pool:
-  name: 'default'
+  name: Default
 
 variables:
   imageName: 'dotnet'

@@ -1,0 +1,35 @@
+trigger:
+- main
+- feature/*
+   
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'dotnet'
+  DOCKER_BUILDKIT: 1
+
+stages:
+  - stage: Tests
+    displayName: Tests
+
+    jobs:
+    - job: SonarQube
+
+      steps:
+      - task: SonarCloudPrepare@1
+        displayName: Prepare Analysis Configuration task
+        inputs:
+          SonarCloud: 'SonarCloud'
+          organization: 'azuredevopsleandro'
+          scannerMode: 'MSBuild'
+          projectKey: 'azuredevopsleandro_dotNet-Pipeline'
+          projectName: 'dotNet Pipeline'
+
+      - task: SonarCloudAnalyze@1
+        displayName: Run Code Analysis
+
+      - task: SonarCloudPublish@1
+        displayName: Publish Quality Gate Result
+        inputs:
+          pollingTimeoutSec: '300'

@@ -10,7 +10,7 @@ variables:
   DOCKER_BUILDKIT: 1
 
 stages:
-  - stage: Quality Tests
+  - stage: QA
     displayName: Quality Tests
 
     jobs:

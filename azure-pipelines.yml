@@ -3,7 +3,7 @@ trigger:
 - feature/*
    
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-18:04'
 
 variables:
   imageName: 'dotnet'

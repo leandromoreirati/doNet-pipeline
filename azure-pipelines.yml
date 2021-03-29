@@ -10,8 +10,8 @@ variables:
   DOCKER_BUILDKIT: 1
 
 stages:
-  - stage: Tests
-    displayName: Tests
+  - stage: Quality Tests
+    displayName: Quality Tests
 
     jobs:
     - job: SonarQube

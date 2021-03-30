@@ -9,7 +9,8 @@ $(which apt-get) install -y \
     ca-certificates \
     curl \
     gnupg-agent \
-    software-properties-common
+    software-properties-common \
+    openjdk-11-jdk
 
 $(which curl) -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 

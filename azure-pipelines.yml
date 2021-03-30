@@ -22,9 +22,11 @@ stages:
         inputs:
           SonarCloud: 'SonarCloud'
           organization: 'azuredevopsleandro'
-          #scannerMode: 'MSBuild'
-          projectKey: 'azuredevopsleandro_dotNet-Pipeline'
-          projectName: 'dotNet Pipeline'
+          scannerMode: 'CLI'
+          configMode: 'manual'
+          cliProjectKey: 'azuredevopsleandro_dotNet-Pipeline'
+          cliProjectName: 'dotNet Pipeline'
+          cliSources: '.'
 
       - task: SonarCloudAnalyze@1
         displayName: Run Code Analysis

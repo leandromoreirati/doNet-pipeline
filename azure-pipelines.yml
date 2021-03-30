@@ -22,7 +22,7 @@ stages:
         inputs:
           SonarCloud: 'SonarCloud'
           organization: 'azuredevopsleandro'
-          scannerMode: 'MSBuild'
+          #scannerMode: 'MSBuild'
           projectKey: 'azuredevopsleandro_dotNet-Pipeline'
           projectName: 'dotNet Pipeline'
 

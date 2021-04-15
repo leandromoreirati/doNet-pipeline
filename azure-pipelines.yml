@@ -3,7 +3,8 @@ trigger:
 - feature/*
    
 pool:
-  name: self
+  #name: self
+  vmImage: ubuntu-16.04
 
 variables:
   imageName: 'dotnet'
